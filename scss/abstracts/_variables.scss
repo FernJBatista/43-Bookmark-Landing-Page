@@ -1,0 +1,16 @@
+:root {
+    --Blue-600: #5368df;
+    --Red-400: #fa5757;
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+}
