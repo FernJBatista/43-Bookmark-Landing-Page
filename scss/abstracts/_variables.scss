@@ -1,3 +1,5 @@
+@use "../abstracts/mixins";
+
 :root {
     --Blue-600: #5368df;
     --Red-400: #fa5757;
@@ -13,4 +15,38 @@
     opacity: 1;
     visibility: visible;
     position: relative;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+
+    @include mixins.desktop-up {
+        width: fit-content;
+    }
+
+    &.primary {
+        background-color: var(--Blue-600);
+        color: #fff;
+    }
+
+    &.secondary {
+        background-color: #f2f2f2;
+        color: #252525;
+    }
 }

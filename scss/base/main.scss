@@ -14,13 +14,19 @@ body {
 }
 
 .header {
-    position: relative;
+    z-index: 2;
+    position: fixed;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     padding: 2.5rem 1.5rem 1.5rem;
+    background-color: #fff;
+
+    @include mixins.desktop-up {
+        padding: 2.5rem 4rem 1.5rem;
+    }
 
     .logo-container {
         z-index: 3;
@@ -48,6 +54,7 @@ body {
         position: absolute;
         top: 2.25rem;
         right: 1.5rem;
+        cursor: pointer;
     }
 
     .nav {
@@ -57,10 +64,19 @@ body {
         justify-content: space-between;
         width: 100%;
 
+        @include mixins.desktop-up {
+            justify-content: flex-end;
+        }
+
         .mobile-menu {
             position: absolute;
             top: 2.25rem;
             right: 1.5rem;
+            cursor: pointer;
+
+            @include mixins.desktop-up {
+                display: none;
+            }
         }
         
         .nav-list {
@@ -77,15 +93,34 @@ body {
             padding: 8rem 1.5rem 0;
             background-color: hsla(231, 84%, 7%, 0.85);
 
+            @include mixins.desktop-up {
+                position: static;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-end;
+                width: auto;
+                height: auto;
+                gap: 2rem;
+                padding: 0;
+                opacity: 1;
+                visibility: visible;
+                background-color: transparent;
+            }
+
             .nav-item {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 1.5rem 2rem;
+                padding: 1rem;
                 border-bottom: solid 2px #ffffff25;
                 width: 100%;
                 transition: all 0.3s ease-in-out;
                 cursor: pointer;
+
+                @include mixins.desktop-up {
+                    padding: 1.5rem 0;
+                    border-bottom: none;
+                }
 
                 &:first-child {
                     border-top: solid 2px #ffffff25;
@@ -95,8 +130,13 @@ body {
                     margin-top: 1.5rem;
                     border-bottom: none;
                     border-radius: 0.25rem;
-                    padding: 1rem 2rem;
+                    padding: 1rem 1rem;
                     border: solid 2px #ffffff;
+
+                    @include mixins.desktop-up {
+                        margin-top: 0;
+                        padding: 0;
+                    }
                 }
 
                 .nav-link {
@@ -107,6 +147,14 @@ body {
                     letter-spacing: 0.15rem;
                     font-weight: 500;
                     transition: all 0.3s ease-in-out;
+
+                    @include mixins.desktop-up {
+                        color: #252525;
+                        font-size: 0.785rem;
+                        text-transform: none;
+                        font-weight: 500;
+                        text-transform: uppercase;
+                    }
                 }
 
                 .login-button {
@@ -118,6 +166,17 @@ body {
                     letter-spacing: 0.15rem;
                     font-weight: 500;
                     cursor: pointer;
+                    
+                    @include mixins.desktop-up {
+                        background-color: var(--Red-400);
+                        color: #fff;
+                        padding: 0.75rem 2rem;
+                        border-radius: 0.25rem;
+                        font-size: 0.785rem;
+                        text-transform: none;
+                        font-weight: 500;
+                        text-transform: uppercase;
+                    }
                 }
             }
 
@@ -133,6 +192,10 @@ body {
                 justify-content: center;
                 gap: 1.5rem;
                 width: 100%;
+
+                @include mixins.desktop-up {
+                    display: none;
+                }
         
                 a {
                     text-decoration: none;
@@ -143,33 +206,265 @@ body {
     }
 }
 
-.main {
+.main-content {
+    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 100%;
     height: 100vh;
     padding: 0 1.5rem;
+
+    @include mixins.tablet-up {
+        gap: 2rem;
+    }
+
+    @include mixins.tablet-up {
+        gap: 4rem;
+    }
 
     .hero-section {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 100%;
+        margin-top: 8rem;
+
+        @include mixins.tablet-up {
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 6rem;
+        }
+        @include mixins.desktop-up {
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 8rem;
+        }
 
         .hero-image-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 100%;
-            min-height: 35vh;
             
             .hero-image {
+                flex-shrink: 0;
                 width: 100%;
                 height: auto;
-                position: relative;
+                max-width: 32rem;
                 z-index: 1;
-                object-fit: cover;
+                display: block;
+                object-fit: contain;
                 object-position: center;
+            }
+
+            .hero-blob {
+                position: absolute;
+                bottom: 0;
+                right: -1.5rem;
+                border-radius: 200rem 0 0 200rem;
+                min-height: 16rem;
+                width: 24rem;
+                background-color: var(--Blue-600);
+            }
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            width: 100%;
+            padding: 4rem 0;
+            text-align: center;
+
+            @include mixins.mobile-up {
+                align-items: flex-start;
+                text-align: left;
+                padding: 4rem 3rem;
+            }
+
+            .hero-buttons {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                width: 100%;
+
+                @include mixins.mobile-up {
+                    justify-content: flex-start;
+                }
+            }
+        }
+    }
+    
+    .features-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+        width: 100%;
+
+        @include mixins.tablet-up {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .features-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            text-align: center;
+            max-width: 32rem;           
+        }
+
+        .features-tabs-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 1rem;
+
+            .features-tab-group {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+
+                @include mixins.mobile-up {
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                .feature-tab {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    border-top: solid 2px #00000010;
+                    cursor: pointer;
+
+                    @include mixins.mobile-up {
+                        width: 100%;
+                        max-width: 16rem;
+                        border-top: none;
+                        border-bottom: solid 2px #00000010;
+                    }
+    
+                    &:last-child {
+                        border-bottom: solid 2px #00000010;
+                    }
+
+                    .tab-selector {
+                        padding: 1.25rem;
+                        width: fit-content;
+                        border-bottom: solid 2px transparent;
+                    }
+
+                    &.active {
+                        .tab-selector {
+                            border-bottom: solid 2px var(--Red-400);
+                        }
+                    }
+                }
+            }
+        }
+
+        .features-content-container {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            
+            .blob-left {
+                position: absolute;
+                left: -1.5rem;
+                top: 5rem;
+                width: 100%;
+                min-height: 14rem;
+                background-color: var(--Blue-600);
+                border-radius: 0 200rem 200rem 0; 
+                z-index: -1;
+
+                @include mixins.tablet-up {
+                    left: -1.5rem;
+                    top: 4rem;
+                    min-height: 20rem;
+                    width: 75%;
+                }
+
+                @include mixins.desktop-up {
+                    bottom: 2rem;
+                    min-height: 20rem;
+                    width: 50%;
+                }
+            }
+
+            .feature-content {
+                position: absolute;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                visibility: hidden;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 4rem;
+                width: 100%;
+                max-width: 64rem;
+                transition: opacity 0.3s ease-in-out;
+
+                @include mixins.desktop-up {
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5rem;
+                }
+
+                &.active {
+                    position: static;
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                .features-image {
+                    display: block;
+                    max-width: 100%;
+                    height: auto;
+                    max-height: 24rem;
+                    object-fit: cover;
+                }
+                
+                .feature-content-text {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+                    width: 100%;
+                    max-width: 32rem;
+                    text-align: center;
+
+                    @include mixins.desktop-up {
+                        align-items: flex-start;
+                        text-align: left;
+                    }
+                }
             }
         }
     }
